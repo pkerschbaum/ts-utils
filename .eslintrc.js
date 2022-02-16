@@ -23,7 +23,7 @@ module.exports = {
    * code editor (e.g. VS Code).
    */
   plugins: ['only-warn', 'node', 'import', 'regexp'],
-  ignorePatterns: ['.eslintrc.js', 'dist/**/*'],
+  ignorePatterns: ['.eslintrc.js', 'lint-staged.config.js', 'dist/**/*'],
   rules: {
     curly: 'error',
     'no-console': 'error',

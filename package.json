@@ -23,7 +23,8 @@
     "watch": "tsc --watch",
     "lint": "eslint --max-warnings 0 .",
     "format": "prettier --write .",
-    "prepack": "yarn run build"
+    "prepack": "yarn run build",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.12.0",
