@@ -1,4 +1,4 @@
-import type { ObjectLiteral } from '~/utils/typescript.util';
+import type { ObjectLiteral } from '~/utils/types.util';
 
 // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
 export function assertIsUnreachable(value?: never): never {
