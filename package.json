@@ -1,0 +1,31 @@
+{
+  "name": "@pkerschbaum/ts-utils",
+  "version": "0.0.1",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "typescript utils"
+  ],
+  "author": "Patrick Kerschbaum <patrick.kerschbaum@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pkerschbaum/ts-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/pkerschbaum/ts-utils/issues"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "private": false,
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc && tsc-alias -p ./tsconfig.json",
+    "watch": "tsc --watch",
+    "prepack": "yarn run build"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "tsc-alias": "^1.6.0",
+    "typescript": "^4.5.5"
+  }
+}
