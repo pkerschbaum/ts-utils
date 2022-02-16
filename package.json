@@ -21,9 +21,22 @@
     "prebuild": "rimraf dist",
     "build": "tsc && tsc-alias -p ./tsconfig.json",
     "watch": "tsc --watch",
+    "lint": "eslint --max-warnings 0 .",
+    "format": "prettier --write .",
     "prepack": "yarn run build"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.12.0",
+    "@typescript-eslint/parser": "^5.12.0",
+    "eslint": "^8.9.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "eslint-plugin-regexp": "^1.5.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.4",
+    "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
     "tsc-alias": "^1.6.0",
     "typescript": "^4.5.5"

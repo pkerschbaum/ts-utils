@@ -1,4 +1,4 @@
-import type { ObjectLiteral } from "~/utils/typescript.util";
+import type { ObjectLiteral } from '~/utils/typescript.util';
 
 // https://www.typescriptlang.org/docs/handbook/2/narrowing.html#exhaustiveness-checking
 export function assertIsUnreachable(value?: never): never {
@@ -24,13 +24,11 @@ function isNotNullish<T>(obj: T | undefined | null): obj is T {
   return !isNullish(obj);
 }
 
-function isEmptyString(str: string): str is "" {
+function isEmptyString(str: string): str is '' {
   return str.trim().length === 0;
 }
 
-function isNullishOrEmptyString(
-  str: string | undefined | null
-): str is "" | undefined | null {
+function isNullishOrEmptyString(str: string | undefined | null): str is '' | undefined | null {
   return isNullish(str) || isEmptyString(str);
 }
 
@@ -48,8 +46,8 @@ function isEmptyObject(obj: ObjectLiteral): boolean {
 }
 
 export function isValueInEnum<T extends string, TEnumValue extends string>(
+  value: string,
   enumVariable: { [key in T]: TEnumValue },
-  value: string
 ): value is TEnumValue {
   const enumValues = Object.values(enumVariable);
   return enumValues.includes(value);

@@ -41,7 +41,7 @@ export type EmptyObject = { [prop: string]: never };
 export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
 
 // https://github.com/Microsoft/TypeScript/issues/15480#issuecomment-601714262
-type PrependNextNum<A extends Array<unknown>> = A["length"] extends infer T
+type PrependNextNum<A extends Array<unknown>> = A['length'] extends infer T
   ? ((t: T, ...a: A) => void) extends (...x: infer X) => void
     ? X
     : never
@@ -49,24 +49,16 @@ type PrependNextNum<A extends Array<unknown>> = A["length"] extends infer T
 type EnumerateInternal<A extends Array<unknown>, N extends number> = {
   0: A;
   1: EnumerateInternal<PrependNextNum<A>, N>;
-}[N extends A["length"] ? 0 : 1];
-export type Enumerate<N extends number> = EnumerateInternal<
-  [],
-  N
-> extends (infer E)[]
-  ? E
-  : never;
-export type Range<FROM extends number, TO extends number> = Exclude<
-  Enumerate<TO>,
-  Enumerate<FROM>
->;
+}[N extends A['length'] ? 0 : 1];
+export type Enumerate<N extends number> = EnumerateInternal<[], N> extends (infer E)[] ? E : never;
+export type Range<FROM extends number, TO extends number> = Exclude<Enumerate<TO>, Enumerate<FROM>>;
 
 // discriminate unions
 // https://stackoverflow.com/a/50499316/1700319
 export type NarrowUnion<
   Union,
   DiscriminatorProperty extends keyof Union,
-  DiscriminatorValue
+  DiscriminatorValue,
 > = Union extends {
   [prop in DiscriminatorProperty]: DiscriminatorValue;
 }
@@ -79,9 +71,9 @@ export type NarrowUnion<
  * Converts a union of two types into an intersection
  * i.e. A | B -> A & B
  */
-export type UnionToIntersection<U> = (
-  U extends any ? (k: U) => void : never
-) extends (k: infer I) => void
+export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
+  k: infer I,
+) => void
   ? I
   : never;
 
@@ -118,21 +110,16 @@ export function typedPath<Shape>() {
     A extends keyof FlattenUnion<Shape>,
     B extends keyof FlattenUnion<FlattenUnion<Shape>[A]>,
     C extends keyof FlattenUnion<FlattenUnion<FlattenUnion<Shape>[A]>[B]>,
-    D extends keyof FlattenUnion<
-      FlattenUnion<FlattenUnion<FlattenUnion<Shape>[A]>[B]>[C]
-    >,
+    D extends keyof FlattenUnion<FlattenUnion<FlattenUnion<FlattenUnion<Shape>[A]>[B]>[C]>,
     E extends keyof FlattenUnion<
       FlattenUnion<FlattenUnion<FlattenUnion<FlattenUnion<Shape>[A]>[B]>[C]>[D]
-    >
+    >,
   >(...props: [A, B?, C?, D?, E?]) {
-    return props.join(".");
+    return props.join('.');
   };
 }
 
-export type ExtractPropertiesOfType<
-  T,
-  Type extends string | number | boolean
-> = {
+export type ExtractPropertiesOfType<T, Type extends string | number | boolean> = {
   [K in keyof T]: T[K] extends Type ? K : never;
 }[keyof T];
 
@@ -152,13 +139,7 @@ export type Id<T> = {} & { [P in keyof T]: T[P] };
 
 // https://stackoverflow.com/a/58993872/1700319
 // eslint-disable-next-line @typescript-eslint/ban-types
-type ImmutablePrimitive =
-  | undefined
-  | null
-  | boolean
-  | string
-  | number
-  | Function;
+type ImmutablePrimitive = undefined | null | boolean | string | number | Function;
 type ImmutableArray<T> = ReadonlyArray<Immutable<T>>;
 type ImmutableMap<K, V> = ReadonlyMap<Immutable<K>, Immutable<V>>;
 type ImmutableSet<T> = ReadonlySet<Immutable<T>>;
@@ -174,9 +155,7 @@ export type Immutable<T> = T extends ImmutablePrimitive
   ? ImmutableSet<M>
   : ImmutableObject<T>;
 
-export type FunctionType<Args extends unknown[], ReturnType> = (
-  ...args: Args
-) => ReturnType;
+export type FunctionType<Args extends unknown[], ReturnType> = (...args: Args) => ReturnType;
 
 /**
  * https://stackoverflow.com/a/43001581/1700319
